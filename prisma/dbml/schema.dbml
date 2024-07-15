@@ -1,0 +1,107 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  name String [not null]
+  email String [unique, not null]
+  birthDate DateTime [not null]
+  profession String
+  password String [not null]
+  passwordChangeRequest password_change_request [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  places places [not null]
+  people people [not null]
+  records records [not null]
+  relationships relationships [not null]
+}
+
+Table relationships {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  type RelationshipType [not null]
+  user users [not null]
+  userId Int [not null]
+  person people [not null]
+  personId Int [not null]
+}
+
+Table records {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  event String [not null]
+  thought String [not null]
+  behavior String [not null]
+  emotions emotions [not null]
+  people people [not null]
+  user users [not null]
+  userId Int [not null]
+  place places [not null]
+  placeId Int [not null]
+}
+
+Table emotions {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  records records [not null]
+}
+
+Table people {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  name String [not null]
+  user users [not null]
+  userId Int [not null]
+  relationships relationships [not null]
+  records records [not null]
+}
+
+Table places {
+  id Int [pk, increment]
+  uuid String [unique, not null]
+  name String [not null]
+  user users [not null]
+  userId Int [not null]
+  records records [not null]
+}
+
+Table password_change_request {
+  token String [pk]
+  user users [not null]
+  userId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+}
+
+Table EmotionToRecord {
+  emotionsId Int [ref: > emotions.id]
+  recordsId Int [ref: > records.id]
+}
+
+Table PersonToRecord {
+  peopleId Int [ref: > people.id]
+  recordsId Int [ref: > records.id]
+}
+
+Enum RelationshipType {
+  Father
+  Mother
+  Boyfriend
+  Girlfriend
+}
+
+Ref: relationships.userId > users.id [delete: Cascade]
+
+Ref: relationships.personId > people.id [delete: Cascade]
+
+Ref: records.userId > users.id [delete: Cascade]
+
+Ref: records.placeId > places.id [delete: Cascade]
+
+Ref: people.userId > users.id [delete: Cascade]
+
+Ref: places.userId > users.id [delete: Cascade]
+
+Ref: password_change_request.userId > users.id [delete: Cascade]

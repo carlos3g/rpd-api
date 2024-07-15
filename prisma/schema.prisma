@@ -1,0 +1,110 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "debian-openssl-1.1.x", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DB_URL")
+  relationMode = "foreignKeys"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+model User {
+  id                    Int                     @id @default(autoincrement())
+  uuid                  String                  @unique
+  name                  String
+  email                 String                  @unique
+  birthDate             DateTime                @map("birth_date")
+  profession            String?
+  password              String
+  passwordChangeRequest PasswordChangeRequest[]
+  createdAt             DateTime                @default(now()) @map("created_at")
+  updatedAt             DateTime                @updatedAt @map("updated_at")
+  places                Place[]
+  people                Person[]
+  records               Record[]
+  relationships         Relationship[]
+
+  @@map("users")
+}
+
+enum RelationshipType {
+  Father     @map("father")
+  Mother     @map("mother")
+  Boyfriend  @map("boyfriend")
+  Girlfriend @map("girlfriend")
+
+  @@map("relationship_type")
+}
+
+model Relationship {
+  id       Int              @id @default(autoincrement())
+  uuid     String           @unique
+  type     RelationshipType
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int              @map("user_id")
+  person   Person           @relation(fields: [personId], references: [id], onDelete: Cascade)
+  personId Int              @map("person_id")
+
+  @@map("relationships")
+}
+
+model Record {
+  id       Int       @id @default(autoincrement())
+  uuid     String    @unique
+  event    String
+  thought  String
+  behavior String
+  emotions Emotion[]
+  people   Person[]
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int       @map("user_id")
+  place    Place     @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  placeId  Int       @map("place_id")
+
+  @@map("records")
+}
+
+model Emotion {
+  id      Int      @id @default(autoincrement())
+  uuid    String   @unique
+  records Record[]
+
+  @@map("emotions")
+}
+
+model Person {
+  id            Int            @id @default(autoincrement())
+  uuid          String         @unique
+  name          String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int            @map("user_id")
+  relationships Relationship[]
+  records       Record[]
+
+  @@map("people")
+}
+
+model Place {
+  id      Int      @id @default(autoincrement())
+  uuid    String   @unique
+  name    String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int      @map("user_id")
+  records Record[]
+
+  @@map("places")
+}
+
+model PasswordChangeRequest {
+  token     String   @id
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("password_change_request")
+}
