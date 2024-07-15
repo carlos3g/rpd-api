@@ -1,6 +1,8 @@
 export class PasswordChangeRequest {
   public constructor(input: PasswordChangeRequest) {
-    Object.assign(this, input);
+    this.token = input.token;
+    this.userId = input.userId;
+    this.createdAt = input.createdAt;
   }
 
   public token: string;

@@ -1,12 +1,11 @@
 import { Exclude } from 'class-transformer';
 
-export class User {
-  public constructor(input: User) {
+export class Person {
+  public constructor(input: Person) {
     this.id = input.id;
     this.uuid = input.uuid;
     this.name = input.name;
-    this.email = input.email;
-    this.password = input.password;
+    this.userId = input.userId;
     this.createdAt = input.createdAt;
     this.updatedAt = input.updatedAt;
   }
@@ -18,9 +17,7 @@ export class User {
 
   public name: string;
 
-  public email: string;
-
-  public password: string;
+  public userId: number;
 
   public createdAt: Date;
 

@@ -27,6 +27,8 @@ Table relationships {
   userId Int [not null]
   person people [not null]
   personId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table records {
@@ -41,12 +43,17 @@ Table records {
   userId Int [not null]
   place places [not null]
   placeId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table emotions {
   id Int [pk, increment]
   uuid String [unique, not null]
+  name String [not null]
   records records [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table people {
@@ -57,6 +64,8 @@ Table people {
   userId Int [not null]
   relationships relationships [not null]
   records records [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table places {
@@ -66,6 +75,8 @@ Table places {
   user users [not null]
   userId Int [not null]
   records records [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table password_change_request {
@@ -73,6 +84,7 @@ Table password_change_request {
   user users [not null]
   userId Int [not null]
   createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
 }
 
 Table EmotionToRecord {

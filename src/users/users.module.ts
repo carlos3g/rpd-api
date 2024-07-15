@@ -15,6 +15,11 @@ import { UsersController } from './users.controller';
       useClass: UserRepository,
     },
   ],
-  exports: [UserRepositoryContract],
+  exports: [
+    {
+      provide: UserRepositoryContract,
+      useClass: UserRepository,
+    },
+  ],
 })
 export class UsersModule {}
