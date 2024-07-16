@@ -1,3 +1,4 @@
+import type { Paginate } from '@app/lib/prisma/interfaces';
 import type { AtLeastOne } from '@app/shared/types';
 
 export interface PersonRepositoryCreateInput {
@@ -6,7 +7,7 @@ export interface PersonRepositoryCreateInput {
 }
 
 export interface PersonRepositoryUpdateInput {
-  where: AtLeastOne<{
+  where: { userId: number } & AtLeastOne<{
     id: number;
     uuid: string;
   }>;
@@ -14,8 +15,23 @@ export interface PersonRepositoryUpdateInput {
 }
 
 export interface PersonRepositoryFindUniqueOrThrowInput {
-  where: AtLeastOne<{
+  where: { userId: number } & AtLeastOne<{
     id: number;
     uuid: string;
+  }>;
+}
+
+export interface PersonRepositoryFindManyPaginatedInput {
+  where: {
+    name?: string;
+    userId: number;
+  };
+  options?: Paginate;
+}
+
+export interface PersonRepositoryDeleteInput {
+  where: { userId: number } & AtLeastOne<{
+    id?: number;
+    uuid?: string;
   }>;
 }

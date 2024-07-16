@@ -1,3 +1,4 @@
+import { AuthModule } from '@app/auth/auth.module';
 import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { PersonRepositoryContract } from '@app/people/contracts';
 import { PeopleController } from '@app/people/people.controller';
@@ -6,7 +7,7 @@ import { PeopleService } from '@app/people/services/people.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule],
   controllers: [PeopleController],
   providers: [
     PeopleService,

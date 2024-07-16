@@ -1,3 +1,4 @@
+import { AuthModule } from '@app/auth/auth.module';
 import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { PlaceRepositoryContract } from '@app/places/contracts';
 import { PlacesController } from '@app/places/places.controller';
@@ -6,7 +7,7 @@ import { PlacesService } from '@app/places/services/places.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule],
   controllers: [PlacesController],
   providers: [
     PlacesService,

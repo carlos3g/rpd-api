@@ -2,7 +2,7 @@ import type {
   UserRepositoryCreateInput,
   UserRepositoryFindUniqueOrThrowInput,
   UserRepositoryUpdateInput,
-} from '@app/users/dtos';
+} from '@app/users/dtos/user-repository-dtos';
 import type { User } from '@app/users/entities/user.entity';
 
 abstract class UserRepositoryContract {

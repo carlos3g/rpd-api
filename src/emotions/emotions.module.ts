@@ -1,3 +1,4 @@
+import { AuthModule } from '@app/auth/auth.module';
 import { EmotionRepositoryContract } from '@app/emotions/contracts';
 import { EmotionsController } from '@app/emotions/emotions.controller';
 import { EmotionRepository } from '@app/emotions/repositories/emotion.repository';
@@ -6,7 +7,7 @@ import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule],
   controllers: [EmotionsController],
   providers: [
     EmotionsService,

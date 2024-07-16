@@ -1,8 +1,11 @@
+import type { PaginatedResult } from '@app/lib/prisma/helpers';
 import type {
   RecordRepositoryCreateInput,
+  RecordRepositoryDeleteInput,
+  RecordRepositoryFindManyPaginatedInput,
   RecordRepositoryFindUniqueOrThrowInput,
   RecordRepositoryUpdateInput,
-} from '@app/records/dtos';
+} from '@app/records/dtos/record-repository-dtos';
 import type { Record } from '@app/records/entities/record.entity';
 
 abstract class RecordRepositoryContract {
@@ -11,6 +14,10 @@ abstract class RecordRepositoryContract {
   public abstract update(input: RecordRepositoryUpdateInput): Promise<Record>;
 
   public abstract findUniqueOrThrow(input: RecordRepositoryFindUniqueOrThrowInput): Promise<Record>;
+
+  public abstract findManyPaginated(input: RecordRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Record>>;
+
+  public abstract delete(input: RecordRepositoryDeleteInput): Promise<Record>;
 }
 
 export { RecordRepositoryContract };

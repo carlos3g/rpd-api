@@ -44,5 +44,10 @@ import { AuthController } from './auth.controller';
     ForgotPasswordUseCase,
     ResetPasswordUseCase,
   ],
+  exports: [
+    { provide: AuthServiceContract, useClass: AuthService },
+    { provide: HashServiceContract, useClass: BCryptService },
+    { provide: JwtServiceContract, useClass: JwtService },
+  ],
 })
 export class AuthModule {}

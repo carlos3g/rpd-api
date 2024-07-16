@@ -19,3 +19,9 @@ export interface EmotionRepositoryFindUniqueOrThrowInput {
     uuid: string;
   }>;
 }
+
+export interface EmotionRepositoryFindManyInput {
+  where?: {
+    name?: string;
+  };
+}

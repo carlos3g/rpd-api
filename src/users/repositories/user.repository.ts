@@ -4,7 +4,7 @@ import type {
   UserRepositoryCreateInput,
   UserRepositoryFindUniqueOrThrowInput,
   UserRepositoryUpdateInput,
-} from '@app/users/dtos';
+} from '@app/users/dtos/user-repository-dtos';
 import { User } from '@app/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';

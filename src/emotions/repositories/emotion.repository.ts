@@ -1,9 +1,10 @@
 import type { EmotionRepositoryContract } from '@app/emotions/contracts';
 import type {
   EmotionRepositoryCreateInput,
+  EmotionRepositoryFindManyInput,
   EmotionRepositoryFindUniqueOrThrowInput,
   EmotionRepositoryUpdateInput,
-} from '@app/emotions/dtos';
+} from '@app/emotions/dtos/emotion-repository-dtos';
 import { Emotion } from '@app/emotions/entities/emotion.entity';
 import { PrismaManagerService } from '@app/lib/prisma/services/prisma-manager.service';
 import { Injectable } from '@nestjs/common';
@@ -19,6 +20,18 @@ export class EmotionRepository implements EmotionRepositoryContract {
     });
 
     return new Emotion(emotion);
+  }
+
+  public findMany(input?: EmotionRepositoryFindManyInput): Promise<Emotion[]> {
+    const { name = undefined, ...where } = input?.where || {};
+
+    return this.prismaManager.getClient().emotion.findMany({
+      where: {
+        ...where,
+        name: { mode: 'insensitive', contains: name },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   public async create(input: EmotionRepositoryCreateInput) {
