@@ -1,4 +1,4 @@
-import { createPaginator, type PaginatedResult } from '@app/lib/prisma/helpers';
+import { createPaginator, type PaginatedResult } from '@app/lib/prisma/helpers/pagination';
 import { PrismaManagerService } from '@app/lib/prisma/services/prisma-manager.service';
 import type { PlaceRepositoryContract } from '@app/places/contracts';
 import type {

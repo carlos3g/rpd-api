@@ -1,4 +1,4 @@
-import type { PaginatedResult } from '@app/lib/prisma/helpers';
+import type { PaginatedResult } from '@app/lib/prisma/helpers/pagination';
 import type {
   RecordRepositoryCreateInput,
   RecordRepositoryDeleteInput,

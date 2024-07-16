@@ -1,5 +1,5 @@
-import type { PaginatedResult } from '@app/lib/prisma/helpers';
-import { createPaginator } from '@app/lib/prisma/helpers';
+import type { PaginatedResult } from '@app/lib/prisma/helpers/pagination';
+import { createPaginator } from '@app/lib/prisma/helpers/pagination';
 import { PrismaManagerService } from '@app/lib/prisma/services/prisma-manager.service';
 import type { RecordRepositoryContract } from '@app/records/contracts';
 import type {
