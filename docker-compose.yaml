@@ -31,13 +31,13 @@ services:
     ports:
       - '${DB_PORT}:5432'
     volumes:
+      - ./postgres-scripts/:/docker-entrypoint-initdb.d/
       - ./rpd-db:/var/lib/postgresql/data
     networks:
       - rpdnetwork
 
 volumes:
   rpd-db:
-    driver: local
   node_modules:
     driver: local
     driver_opts:
