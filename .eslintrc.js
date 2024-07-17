@@ -34,7 +34,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['**/*.e2e-spec.ts', '**/*.spec.ts', 'test/*'],
+        devDependencies: ['**/*.e2e-spec.ts', '**/*.spec.ts', 'test/**/*'],
       },
     ],
     '@typescript-eslint/no-misused-promises': [

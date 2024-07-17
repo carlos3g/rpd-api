@@ -32,15 +32,13 @@ const mockArgumentsHost = {
 describe('PrismaClientExceptionFilter', () => {
   let service: PrismaClientExceptionFilter;
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   beforeEach(async () => {
     jest.clearAllMocks();
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [PrismaClientExceptionFilter],
     }).compile();
+
     service = module.get<PrismaClientExceptionFilter>(PrismaClientExceptionFilter);
   });
 
