@@ -10,6 +10,7 @@ interface OriginalMethod {
 }
 
 export function Transaction(): MethodDecorator {
+  // see: https://stackoverflow.com/a/60608920/13274020
   const injectService = Inject(PrismaTransactionScope);
 
   return (target: object, propertyKey: string | symbol, propertyDescriptor: PropertyDescriptor) => {

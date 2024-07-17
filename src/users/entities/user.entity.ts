@@ -2,27 +2,23 @@ import { Exclude } from 'class-transformer';
 
 export class User {
   public constructor(input: User) {
-    this.id = input.id;
-    this.uuid = input.uuid;
-    this.name = input.name;
-    this.email = input.email;
-    this.password = input.password;
-    this.createdAt = input.createdAt;
-    this.updatedAt = input.updatedAt;
+    Object.assign(this, input);
   }
 
   @Exclude()
-  public id: number;
+  public id!: number;
 
-  public uuid: string;
+  public uuid!: string;
 
-  public name: string;
+  public name!: string;
 
-  public email: string;
+  public email!: string;
 
-  public password: string;
+  public birthDate!: Date;
 
-  public createdAt: Date;
+  public password!: string;
 
-  public updatedAt: Date;
+  public createdAt!: Date;
+
+  public updatedAt!: Date;
 }

@@ -17,7 +17,7 @@ abstract class RecordRepositoryContract {
 
   public abstract findManyPaginated(input: RecordRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Record>>;
 
-  public abstract delete(input: RecordRepositoryDeleteInput): Promise<Record>;
+  public abstract delete(input: RecordRepositoryDeleteInput): Promise<void>;
 }
 
 export { RecordRepositoryContract };

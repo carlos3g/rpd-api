@@ -2,7 +2,6 @@ import type { AtLeastOne } from '@app/shared/types';
 
 export interface EmotionRepositoryCreateInput {
   name: string;
-  userId: number;
 }
 
 export interface EmotionRepositoryUpdateInput {

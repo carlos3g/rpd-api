@@ -17,7 +17,7 @@ abstract class PlaceRepositoryContract {
 
   public abstract findManyPaginated(input: PlaceRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Place>>;
 
-  public abstract delete(input: PlaceRepositoryDeleteInput): Promise<Place>;
+  public abstract delete(input: PlaceRepositoryDeleteInput): Promise<void>;
 }
 
 export { PlaceRepositoryContract };

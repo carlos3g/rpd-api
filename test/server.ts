@@ -1,7 +1,7 @@
 /* eslint-disable import/no-mutable-exports */
 import type { INestApplication } from '@nestjs/common';
+import { getApplication } from '@test/get-application';
 import type { Server } from 'net';
-import { getApplication } from 'test/get-application';
 
 // see: https://github.com/nestjs/nest/issues/13191#issuecomment-1938178694
 export let app: INestApplication<Server>;

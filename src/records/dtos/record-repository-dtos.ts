@@ -1,4 +1,4 @@
-import type { Paginate } from '@app/lib/prisma/interfaces';
+import type { Paginate } from '@app/shared/dtos/paginate';
 import type { AtLeastOne } from '@app/shared/types';
 
 export interface RecordRepositoryCreateInput {

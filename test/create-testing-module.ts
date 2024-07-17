@@ -1,7 +1,7 @@
+import { AppModule } from '@app/app.module';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import type { Server } from 'net';
-import { AppModule } from 'src/app.module';
 
 export async function createTestingModule() {
   const moduleFixture = Test.createTestingModule({

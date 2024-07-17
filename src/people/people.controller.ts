@@ -1,10 +1,10 @@
 import { UserDecorator } from '@app/auth/decorators/user.decorator';
 import { AuthGuard } from '@app/auth/guards/auth.guard';
-import { Paginate } from '@app/lib/prisma/interfaces';
 import { PersonRepositoryContract } from '@app/people/contracts';
 import { FilterPeopleQuery } from '@app/people/dtos/filter-people-query';
 import { PersonCreateRequest } from '@app/people/dtos/person-create-request';
 import { PersonUpdateRequest } from '@app/people/dtos/person-update-request';
+import { Paginate } from '@app/shared/dtos/paginate';
 import { User } from '@app/users/entities/user.entity';
 import {
   Body,
@@ -39,7 +39,7 @@ export class PeopleController {
   }
 
   @Post('')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   public async create(@UserDecorator() user: User, @Body() input: PersonCreateRequest) {
     return this.personRepository.create({ ...input, userId: user.id });
   }

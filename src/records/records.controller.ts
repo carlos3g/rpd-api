@@ -1,10 +1,10 @@
 import { UserDecorator } from '@app/auth/decorators/user.decorator';
 import { AuthGuard } from '@app/auth/guards/auth.guard';
-import { Paginate } from '@app/lib/prisma/interfaces';
 import { RecordRepositoryContract } from '@app/records/contracts';
 import { FilterRecordsQuery } from '@app/records/dtos/filter-records-query';
 import { RecordCreateRequest } from '@app/records/dtos/record-create-request';
 import { RecordUpdateRequest } from '@app/records/dtos/record-update-request';
+import { Paginate } from '@app/shared/dtos/paginate';
 import { User } from '@app/users/entities/user.entity';
 import {
   Body,
@@ -39,7 +39,7 @@ export class RecordsController {
   }
 
   @Post('')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   public async create(@UserDecorator() user: User, @Body() input: RecordCreateRequest) {
     return this.recordRepository.create({ ...input, userId: user.id });
   }

@@ -1,10 +1,10 @@
 import { UserDecorator } from '@app/auth/decorators/user.decorator';
 import { AuthGuard } from '@app/auth/guards/auth.guard';
-import { Paginate } from '@app/lib/prisma/interfaces';
 import { PlaceRepositoryContract } from '@app/places/contracts';
 import { FilterPlacesQuery } from '@app/places/dtos/filter-places-query';
 import { PlaceCreateRequest } from '@app/places/dtos/place-create-request';
 import { PlaceUpdateRequest } from '@app/places/dtos/place-update-request';
+import { Paginate } from '@app/shared/dtos/paginate';
 import { User } from '@app/users/entities/user.entity';
 import {
   Body,
@@ -39,7 +39,7 @@ export class PlacesController {
   }
 
   @Post('')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   public async create(@UserDecorator() user: User, @Body() input: PlaceCreateRequest) {
     return this.placeRepository.create({ ...input, userId: user.id });
   }

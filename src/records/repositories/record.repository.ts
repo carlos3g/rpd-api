@@ -77,9 +77,9 @@ export class RecordRepository implements RecordRepositoryContract {
     return new Record(record);
   }
 
-  public delete(input: RecordRepositoryDeleteInput): Promise<Record> {
+  public async delete(input: RecordRepositoryDeleteInput): Promise<void> {
     const { where } = input;
 
-    return this.prismaManager.getClient().record.delete({ where });
+    await this.prismaManager.getClient().record.delete({ where });
   }
 }

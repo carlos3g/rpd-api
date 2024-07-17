@@ -66,9 +66,9 @@ export class PlaceRepository implements PlaceRepositoryContract {
     return new Place(place);
   }
 
-  public delete(input: PlaceRepositoryDeleteInput): Promise<Place> {
+  public async delete(input: PlaceRepositoryDeleteInput): Promise<void> {
     const { where } = input;
 
-    return this.prismaManager.getClient().place.delete({ where });
+    await this.prismaManager.getClient().place.delete({ where });
   }
 }

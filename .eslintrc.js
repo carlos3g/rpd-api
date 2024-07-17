@@ -31,6 +31,12 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 2,
     'class-methods-use-this': 0,
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.e2e-spec.ts', '**/*.spec.ts', 'test/*'],
+      },
+    ],
     '@typescript-eslint/no-misused-promises': [
       2,
       {

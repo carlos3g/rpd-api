@@ -64,9 +64,9 @@ export class PersonRepository implements PersonRepositoryContract {
     return new Person(person);
   }
 
-  public delete(input: PersonRepositoryDeleteInput): Promise<Person> {
+  public async delete(input: PersonRepositoryDeleteInput): Promise<void> {
     const { where } = input;
 
-    return this.prismaManager.getClient().person.delete({ where });
+    await this.prismaManager.getClient().person.delete({ where });
   }
 }
