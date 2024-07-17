@@ -15,7 +15,7 @@ import type { Prisma } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class RecordRepository implements RecordRepositoryContract {
+export class PrismaRecordRepository implements RecordRepositoryContract {
   public constructor(private readonly prismaManager: PrismaManagerService) {}
 
   public async findUniqueOrThrow(input: RecordRepositoryFindUniqueOrThrowInput) {

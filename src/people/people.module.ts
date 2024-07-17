@@ -2,7 +2,7 @@ import { AuthModule } from '@app/auth/auth.module';
 import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { PersonRepositoryContract } from '@app/people/contracts';
 import { PeopleController } from '@app/people/people.controller';
-import { PersonRepository } from '@app/people/repositories/person.repository';
+import { PrismaPersonRepository } from '@app/people/repositories/prisma-person.repository';
 import { PeopleService } from '@app/people/services/people.service';
 import { Module } from '@nestjs/common';
 
@@ -13,13 +13,13 @@ import { Module } from '@nestjs/common';
     PeopleService,
     {
       provide: PersonRepositoryContract,
-      useClass: PersonRepository,
+      useClass: PrismaPersonRepository,
     },
   ],
   exports: [
     {
       provide: PersonRepositoryContract,
-      useClass: PersonRepository,
+      useClass: PrismaPersonRepository,
     },
   ],
 })

@@ -1,7 +1,7 @@
 import { AuthModule } from '@app/auth/auth.module';
 import { EmotionRepositoryContract } from '@app/emotions/contracts';
 import { EmotionsController } from '@app/emotions/emotions.controller';
-import { EmotionRepository } from '@app/emotions/repositories/emotion.repository';
+import { PrismaEmotionRepository } from '@app/emotions/repositories/prisma-emotion.repository';
 import { EmotionsService } from '@app/emotions/services/emotions.service';
 import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { Module } from '@nestjs/common';
@@ -13,13 +13,13 @@ import { Module } from '@nestjs/common';
     EmotionsService,
     {
       provide: EmotionRepositoryContract,
-      useClass: EmotionRepository,
+      useClass: PrismaEmotionRepository,
     },
   ],
   exports: [
     {
       provide: EmotionRepositoryContract,
-      useClass: EmotionRepository,
+      useClass: PrismaEmotionRepository,
     },
   ],
 })

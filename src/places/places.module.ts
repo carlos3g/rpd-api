@@ -2,7 +2,7 @@ import { AuthModule } from '@app/auth/auth.module';
 import { PrismaModule } from '@app/lib/prisma/prisma.module';
 import { PlaceRepositoryContract } from '@app/places/contracts';
 import { PlacesController } from '@app/places/places.controller';
-import { PlaceRepository } from '@app/places/repositories/place.repository';
+import { PrismaPlaceRepository } from '@app/places/repositories/prisma-place.repository';
 import { PlacesService } from '@app/places/services/places.service';
 import { Module } from '@nestjs/common';
 
@@ -13,13 +13,13 @@ import { Module } from '@nestjs/common';
     PlacesService,
     {
       provide: PlaceRepositoryContract,
-      useClass: PlaceRepository,
+      useClass: PrismaPlaceRepository,
     },
   ],
   exports: [
     {
       provide: PlaceRepositoryContract,
-      useClass: PlaceRepository,
+      useClass: PrismaPlaceRepository,
     },
   ],
 })

@@ -2,7 +2,7 @@ import type { AuthServiceContract } from '@app/auth/contracts';
 import { JwtServiceContract } from '@app/auth/contracts';
 import type { JwtPayload } from '@app/auth/types/jwt-payload';
 import type { EnvVariables } from '@app/shared/types';
-import { UserRepositoryContract } from '@app/users/contracts';
+import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import type { User } from '@app/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

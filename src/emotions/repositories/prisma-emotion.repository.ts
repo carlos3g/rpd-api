@@ -11,7 +11,7 @@ import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class EmotionRepository implements EmotionRepositoryContract {
+export class PrismaEmotionRepository implements EmotionRepositoryContract {
   public constructor(private readonly prismaManager: PrismaManagerService) {}
 
   public async findUniqueOrThrow(input: EmotionRepositoryFindUniqueOrThrowInput) {

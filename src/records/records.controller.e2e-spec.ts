@@ -1,7 +1,7 @@
 import { PersonRepositoryContract } from '@app/people/contracts';
 import { PlaceRepositoryContract } from '@app/places/contracts';
 import { RecordRepositoryContract } from '@app/records/contracts';
-import { UserRepositoryContract } from '@app/users/contracts';
+import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import type { User } from '@app/users/entities/user.entity';
 import { faker } from '@faker-js/faker';
 import { HttpStatus } from '@nestjs/common';

@@ -10,7 +10,7 @@ import { PrismaManagerService } from '@app/lib/prisma/services/prisma-manager.se
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PasswordChangeRequestRepository implements PasswordChangeRequestRepositoryContract {
+export class PrismaPasswordChangeRequestRepository implements PasswordChangeRequestRepositoryContract {
   public constructor(private readonly prismaManager: PrismaManagerService) {}
 
   public async findUniqueOrThrow(input: PasswordChangeRequestRepositoryFindUniqueOrThrowInput) {

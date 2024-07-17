@@ -4,7 +4,7 @@ import {
   JwtServiceContract,
   PasswordChangeRequestRepositoryContract,
 } from '@app/auth/contracts';
-import { PasswordChangeRequestRepository } from '@app/auth/repositories/password-change-request.repository';
+import { PrismaPasswordChangeRequestRepository } from '@app/auth/repositories/prisma-password-change-request.repository';
 import { AuthService } from '@app/auth/services/auth.service';
 import { BCryptService } from '@app/auth/services/bcrypt.service';
 import { ForgotPasswordUseCase } from '@app/auth/use-cases/forgot-password.use-case';
@@ -37,7 +37,7 @@ import { AuthController } from './auth.controller';
     { provide: AuthServiceContract, useClass: AuthService },
     { provide: HashServiceContract, useClass: BCryptService },
     { provide: JwtServiceContract, useClass: JwtService },
-    { provide: PasswordChangeRequestRepositoryContract, useClass: PasswordChangeRequestRepository },
+    { provide: PasswordChangeRequestRepositoryContract, useClass: PrismaPasswordChangeRequestRepository },
     SignInUseCase,
     SignUpUseCase,
     RefreshTokenUseCase,

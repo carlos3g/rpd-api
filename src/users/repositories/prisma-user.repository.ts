@@ -1,5 +1,5 @@
 import { PrismaManagerService } from '@app/lib/prisma/services/prisma-manager.service';
-import type { UserRepositoryContract } from '@app/users/contracts';
+import type { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import type {
   UserRepositoryCreateInput,
   UserRepositoryFindUniqueOrThrowInput,
@@ -10,7 +10,7 @@ import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class UserRepository implements UserRepositoryContract {
+export class PrismaUserRepository implements UserRepositoryContract {
   public constructor(private readonly prismaManager: PrismaManagerService) {}
 
   public async findUniqueOrThrow(input: UserRepositoryFindUniqueOrThrowInput) {

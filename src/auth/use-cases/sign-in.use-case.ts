@@ -1,7 +1,7 @@
 import { AuthServiceContract, HashServiceContract } from '@app/auth/contracts';
 import type { SignInInput } from '@app/auth/dtos/sign-in-input';
 import type { UseCaseHandler } from '@app/shared/interfaces';
-import { UserRepositoryContract } from '@app/users/contracts';
+import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { HashServiceContract, PasswordChangeRequestRepositoryContract } from '@app/auth/contracts';
 import type { ResetPasswordInput } from '@app/auth/dtos/reset-password-input';
 import type { UseCaseHandler } from '@app/shared/interfaces';
-import { UserRepositoryContract } from '@app/users/contracts';
+import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()

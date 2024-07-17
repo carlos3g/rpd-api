@@ -1,5 +1,5 @@
 import { EmotionRepositoryContract } from '@app/emotions/contracts';
-import { UserRepositoryContract } from '@app/users/contracts';
+import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
 import type { User } from '@app/users/entities/user.entity';
 import { HttpStatus } from '@nestjs/common';
 import { getAccessToken } from '@test/auth';
