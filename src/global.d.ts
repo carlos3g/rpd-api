@@ -19,6 +19,10 @@ declare namespace NodeJS {
 }
 
 declare global {
+  // see: https://github.com/blitz-js/blitz/blob/3b10b13e6b7d5273fc724286da43887e4b526787/packages/blitz/src/global.ts
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, vars-on-top, no-var
+  var _secret_prismaClient: any;
+
   declare namespace Express {
     interface Request {
       user?: User;

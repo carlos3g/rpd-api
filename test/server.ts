@@ -17,6 +17,10 @@ beforeAll(async () => {
   await app.init();
 });
 
+afterEach(async () => {
+  await prisma.clearDatabase();
+});
+
 afterAll(async () => {
   await prisma.$disconnect();
   await app.close();
