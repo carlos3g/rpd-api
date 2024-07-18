@@ -1,5 +1,6 @@
 import { AuthModule } from '@app/auth/auth.module';
 import { EmotionsModule } from '@app/emotions/emotions.module';
+import { HealthModule } from '@app/health/health.module';
 import { PrismaClientExceptionFilter } from '@app/lib/prisma/exceptions/prisma-client-exception.filter';
 import { PrismaService } from '@app/lib/prisma/services/prisma.service';
 import { PeopleModule } from '@app/people/people.module';
@@ -21,6 +22,7 @@ import { APP_FILTER } from '@nestjs/core';
     PlacesModule,
     RecordsModule,
     UsersModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [
