@@ -1,5 +1,6 @@
 import { Match } from '@app/shared/validators';
-import { IsEmail, Length } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, MinLength } from 'class-validator';
 
 export class ResetPasswordInput {
   public constructor(input: ResetPasswordInput) {
@@ -9,15 +10,18 @@ export class ResetPasswordInput {
     this.passwordConfirmation = input.passwordConfirmation;
   }
 
+  @ApiProperty()
   @IsEmail()
   public email: string;
 
   public token: string;
 
-  @Length(8)
+  @ApiProperty()
+  @MinLength(8)
   public password: string;
 
-  @Length(8)
+  @ApiProperty()
+  @MinLength(8)
   @Match('password')
   public passwordConfirmation: string;
 }

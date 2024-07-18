@@ -1,7 +1,9 @@
 import { AuthGuard } from '@app/auth/guards/auth.guard';
 import { EmotionRepositoryContract } from '@app/emotions/contracts';
 import { Controller, Get, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('emotions')
 export class EmotionsController {
