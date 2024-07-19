@@ -37,11 +37,11 @@ describe('PrismaUserRepository', () => {
       });
 
       const result = await userRepository.findUniqueOrThrow({
-        where: { id: createdUser.id },
+        where: { id: Number(createdUser.id) },
       });
 
       expect(result).toMatchObject({
-        id: createdUser.id,
+        id: Number(createdUser.id),
         name: createdUser.name,
         email: createdUser.email,
       });
@@ -61,7 +61,7 @@ describe('PrismaUserRepository', () => {
       });
 
       const result = await userRepository.update({
-        where: { id: createdUser.id },
+        where: { id: Number(createdUser.id) },
         data: { name: 'Updated Name' },
       });
 

@@ -23,7 +23,7 @@ describe('PrismaPersonRepository', () => {
         data: userFactory(),
       });
 
-      const payload = { ...personFactory(), userId: user.id };
+      const payload = { ...personFactory(), userId: Number(user.id) };
 
       const result = await personRepository.create(payload);
 
@@ -45,13 +45,13 @@ describe('PrismaPersonRepository', () => {
       });
 
       const result = await personRepository.findUniqueOrThrow({
-        where: { id: createdPerson.id, userId: createdPerson.userId },
+        where: { id: Number(createdPerson.id), userId: Number(createdPerson.userId) },
       });
 
       expect(result).toMatchObject({
-        id: createdPerson.id,
+        id: Number(createdPerson.id),
         name: createdPerson.name,
-        userId: createdPerson.userId,
+        userId: Number(createdPerson.userId),
       });
     });
 
@@ -73,7 +73,7 @@ describe('PrismaPersonRepository', () => {
       });
 
       const result = await personRepository.findManyPaginated({
-        where: { userId: user.id },
+        where: { userId: Number(user.id) },
         options: { page: 1, perPage: 10 },
       });
 
@@ -98,7 +98,7 @@ describe('PrismaPersonRepository', () => {
       });
 
       const result = await personRepository.update({
-        where: { id: createdPerson.id, userId: createdPerson.userId },
+        where: { id: Number(createdPerson.id), userId: Number(createdPerson.userId) },
         data: { name: 'Updated Name' },
       });
 
@@ -117,7 +117,7 @@ describe('PrismaPersonRepository', () => {
       });
 
       await personRepository.delete({
-        where: { id: createdPerson.id, userId: createdPerson.userId },
+        where: { id: Number(createdPerson.id), userId: Number(createdPerson.userId) },
       });
 
       await expect(prisma.person.findUniqueOrThrow({ where: { id: createdPerson.id } })).rejects.toThrow();

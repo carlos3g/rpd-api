@@ -3,7 +3,7 @@
 //// ------------------------------------------------------
 
 Table users {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   name String [not null]
   email String [unique, not null]
@@ -20,19 +20,19 @@ Table users {
 }
 
 Table relationships {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   type RelationshipType [not null]
   user users [not null]
-  userId Int [not null]
+  userId BigInt [not null]
   person people [not null]
-  personId Int [not null]
+  personId BigInt [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
 
 Table records {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   event String [not null]
   thought String [not null]
@@ -40,15 +40,15 @@ Table records {
   emotions emotions [not null]
   people people [not null]
   user users [not null]
-  userId Int [not null]
+  userId BigInt [not null]
   place places [not null]
-  placeId Int [not null]
+  placeId BigInt [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
 
 Table emotions {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   name String [not null]
   records records [not null]
@@ -57,11 +57,11 @@ Table emotions {
 }
 
 Table people {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   name String [not null]
   user users [not null]
-  userId Int [not null]
+  userId BigInt [not null]
   relationships relationships [not null]
   records records [not null]
   createdAt DateTime [default: `now()`, not null]
@@ -69,11 +69,11 @@ Table people {
 }
 
 Table places {
-  id Int [pk, increment]
+  id BigInt [pk, increment]
   uuid String [unique, not null]
   name String [not null]
   user users [not null]
-  userId Int [not null]
+  userId BigInt [not null]
   records records [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
@@ -82,19 +82,19 @@ Table places {
 Table password_change_request {
   token String [pk]
   user users [not null]
-  userId Int [not null]
+  userId BigInt [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
 
 Table EmotionToRecord {
-  emotionsId Int [ref: > emotions.id]
-  recordsId Int [ref: > records.id]
+  emotionsId BigInt [ref: > emotions.id]
+  recordsId BigInt [ref: > records.id]
 }
 
 Table PersonToRecord {
-  peopleId Int [ref: > people.id]
-  recordsId Int [ref: > records.id]
+  peopleId BigInt [ref: > people.id]
+  recordsId BigInt [ref: > records.id]
 }
 
 Enum RelationshipType {

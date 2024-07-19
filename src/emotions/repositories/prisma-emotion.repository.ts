@@ -19,19 +19,24 @@ export class PrismaEmotionRepository implements EmotionRepositoryContract {
       where: input.where,
     });
 
-    return new Emotion(emotion);
+    return new Emotion({
+      ...emotion,
+      id: Number(emotion.id),
+    });
   }
 
-  public findMany(input?: EmotionRepositoryFindManyInput): Promise<Emotion[]> {
+  public async findMany(input?: EmotionRepositoryFindManyInput): Promise<Emotion[]> {
     const { name = undefined, ...where } = input?.where || {};
 
-    return this.prismaManager.getClient().emotion.findMany({
+    const emotions = await this.prismaManager.getClient().emotion.findMany({
       where: {
         ...where,
         name: { mode: 'insensitive', contains: name },
       },
       orderBy: { createdAt: 'desc' },
     });
+
+    return emotions.map((emotion) => new Emotion({ ...emotion, id: Number(emotion.id) }));
   }
 
   public async create(input: EmotionRepositoryCreateInput) {
@@ -42,7 +47,10 @@ export class PrismaEmotionRepository implements EmotionRepositoryContract {
       },
     });
 
-    return new Emotion(emotion);
+    return new Emotion({
+      ...emotion,
+      id: Number(emotion.id),
+    });
   }
 
   public async update(input: EmotionRepositoryUpdateInput) {
@@ -51,6 +59,9 @@ export class PrismaEmotionRepository implements EmotionRepositoryContract {
       data: input.data,
     });
 
-    return new Emotion(emotion);
+    return new Emotion({
+      ...emotion,
+      id: Number(emotion.id),
+    });
   }
 }

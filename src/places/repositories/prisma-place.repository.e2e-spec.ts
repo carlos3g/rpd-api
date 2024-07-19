@@ -23,7 +23,7 @@ describe('PrismaPlaceRepository', () => {
         data: userFactory(),
       });
 
-      const payload = { ...placeFactory(), userId: user.id };
+      const payload = { ...placeFactory(), userId: Number(user.id) };
 
       const result = await placeRepository.create(payload);
 
@@ -45,13 +45,13 @@ describe('PrismaPlaceRepository', () => {
       });
 
       const result = await placeRepository.findUniqueOrThrow({
-        where: { id: createdPlace.id, userId: createdPlace.userId },
+        where: { id: Number(createdPlace.id), userId: Number(createdPlace.userId) },
       });
 
       expect(result).toMatchObject({
-        id: createdPlace.id,
+        id: Number(createdPlace.id),
         name: createdPlace.name,
-        userId: createdPlace.userId,
+        userId: Number(createdPlace.userId),
       });
     });
 
@@ -73,7 +73,7 @@ describe('PrismaPlaceRepository', () => {
       });
 
       const result = await placeRepository.findManyPaginated({
-        where: { userId: user.id },
+        where: { userId: Number(user.id) },
         options: { page: 1, perPage: 10 },
       });
 
@@ -98,7 +98,7 @@ describe('PrismaPlaceRepository', () => {
       });
 
       const result = await placeRepository.update({
-        where: { id: createdPlace.id, userId: createdPlace.userId },
+        where: { id: Number(createdPlace.id), userId: Number(createdPlace.userId) },
         data: { name: 'Updated Name' },
       });
 
@@ -117,7 +117,7 @@ describe('PrismaPlaceRepository', () => {
       });
 
       await placeRepository.delete({
-        where: { id: createdPlace.id, userId: createdPlace.userId },
+        where: { id: Number(createdPlace.id), userId: Number(createdPlace.userId) },
       });
 
       await expect(prisma.place.findUniqueOrThrow({ where: { id: createdPlace.id } })).rejects.toThrow();

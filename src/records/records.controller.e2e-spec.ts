@@ -139,7 +139,7 @@ describe('(GET) /records', () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       data: expect.arrayContaining([
         expect.objectContaining({
-          userId: user.id,
+          userId: Number(user.id),
         }),
       ]),
     });

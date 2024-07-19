@@ -10,7 +10,7 @@ import type {
 } from '@app/places/dtos/place-repository-dtos';
 import { Place } from '@app/places/entities/place.entity';
 import { Injectable } from '@nestjs/common';
-import type { Prisma } from '@prisma/client';
+import type { Prisma, Place as PrismaPlace } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -22,7 +22,11 @@ export class PrismaPlaceRepository implements PlaceRepositoryContract {
       where: input.where,
     });
 
-    return new Place(place);
+    return new Place({
+      ...place,
+      id: Number(place.id),
+      userId: Number(place.userId),
+    });
   }
 
   public async findManyPaginated(input: PlaceRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Place>> {
@@ -31,7 +35,7 @@ export class PrismaPlaceRepository implements PlaceRepositoryContract {
 
     const paginate = createPaginator({ perPage });
 
-    const result = await paginate<Place, Prisma.PlaceFindManyArgs>(
+    const result = await paginate<PrismaPlace, Prisma.PlaceFindManyArgs>(
       this.prismaManager.getClient().place,
       {
         where: {
@@ -43,7 +47,17 @@ export class PrismaPlaceRepository implements PlaceRepositoryContract {
       { page }
     );
 
-    return { ...result, data: result.data.map((item) => new Place(item)) };
+    return {
+      ...result,
+      data: result.data.map(
+        (place) =>
+          new Place({
+            ...place,
+            id: Number(place.id),
+            userId: Number(place.userId),
+          })
+      ),
+    };
   }
 
   public async create(input: PlaceRepositoryCreateInput) {
@@ -54,7 +68,11 @@ export class PrismaPlaceRepository implements PlaceRepositoryContract {
       },
     });
 
-    return new Place(place);
+    return new Place({
+      ...place,
+      id: Number(place.id),
+      userId: Number(place.userId),
+    });
   }
 
   public async update(input: PlaceRepositoryUpdateInput) {
@@ -63,7 +81,11 @@ export class PrismaPlaceRepository implements PlaceRepositoryContract {
       data: input.data,
     });
 
-    return new Place(place);
+    return new Place({
+      ...place,
+      id: Number(place.id),
+      userId: Number(place.userId),
+    });
   }
 
   public async delete(input: PlaceRepositoryDeleteInput): Promise<void> {

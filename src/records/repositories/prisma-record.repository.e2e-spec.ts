@@ -45,12 +45,16 @@ describe('PrismaRecordRepository', () => {
         people: { connect: { id: person.id } },
       };
 
-      const result = await recordRepository.create(payload);
+      const result = await recordRepository.create({
+        ...payload,
+        userId: Number(user.id),
+        placeId: Number(place.id),
+      });
 
       expect(result).toMatchObject({
         event: payload.event,
-        placeId: payload.placeId,
-        userId: payload.userId,
+        placeId: Number(payload.placeId),
+        userId: Number(payload.userId),
       });
     });
   });
@@ -87,12 +91,12 @@ describe('PrismaRecordRepository', () => {
       });
 
       const result = await recordRepository.findUniqueOrThrow({
-        where: { id: createdRecord.id, userId: createdRecord.userId },
+        where: { id: Number(createdRecord.id), userId: Number(createdRecord.userId) },
       });
 
       expect(result).toMatchObject({
-        id: createdRecord.id,
-        userId: createdRecord.userId,
+        id: Number(createdRecord.id),
+        userId: Number(createdRecord.userId),
       });
     });
 
@@ -125,7 +129,7 @@ describe('PrismaRecordRepository', () => {
       });
 
       const result = await recordRepository.findManyPaginated({
-        where: { userId: user.id },
+        where: { userId: Number(user.id) },
         options: { page: 1, perPage: 10 },
       });
 
@@ -166,7 +170,7 @@ describe('PrismaRecordRepository', () => {
       const event = faker.lorem.sentence();
 
       const result = await recordRepository.update({
-        where: { id: createdRecord.id, userId: createdRecord.userId },
+        where: { id: Number(createdRecord.id), userId: Number(createdRecord.userId) },
         data: { event },
       });
 
@@ -199,7 +203,7 @@ describe('PrismaRecordRepository', () => {
       });
 
       await recordRepository.delete({
-        where: { id: createdRecord.id, userId: createdRecord.userId },
+        where: { id: Number(createdRecord.id), userId: Number(createdRecord.userId) },
       });
 
       await expect(prisma.record.findUniqueOrThrow({ where: { id: createdRecord.id } })).rejects.toThrow();

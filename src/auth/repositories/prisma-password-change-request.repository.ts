@@ -18,7 +18,10 @@ export class PrismaPasswordChangeRequestRepository implements PasswordChangeRequ
       where: input.where,
     });
 
-    return new PasswordChangeRequest(passwordChangeRequest);
+    return new PasswordChangeRequest({
+      ...passwordChangeRequest,
+      userId: Number(passwordChangeRequest.userId),
+    });
   }
 
   public async findFirstOrThrow(input: PasswordChangeRequestRepositoryFindFirstOrThrowInput) {
@@ -26,7 +29,10 @@ export class PrismaPasswordChangeRequestRepository implements PasswordChangeRequ
       where: input.where,
     });
 
-    return new PasswordChangeRequest(passwordChangeRequest);
+    return new PasswordChangeRequest({
+      ...passwordChangeRequest,
+      userId: Number(passwordChangeRequest.userId),
+    });
   }
 
   public async create(input: PasswordChangeRequestRepositoryCreateInput) {
@@ -36,7 +42,10 @@ export class PrismaPasswordChangeRequestRepository implements PasswordChangeRequ
       },
     });
 
-    return new PasswordChangeRequest(passwordChangeRequest);
+    return new PasswordChangeRequest({
+      ...passwordChangeRequest,
+      userId: Number(passwordChangeRequest.userId),
+    });
   }
 
   public deleteMany(input: PasswordChangeRequestRepositoryDeleteManyInput) {

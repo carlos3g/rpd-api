@@ -10,7 +10,7 @@ import type {
 import { Person } from '@app/people/entities/person.entity';
 import type { PlaceRepositoryFindManyPaginatedInput } from '@app/places/dtos/place-repository-dtos';
 import { Injectable } from '@nestjs/common';
-import type { Prisma } from '@prisma/client';
+import type { Prisma, Person as PrismaPerson } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -22,16 +22,20 @@ export class PrismaPersonRepository implements PersonRepositoryContract {
       where: input.where,
     });
 
-    return new Person(person);
+    return new Person({
+      ...person,
+      id: Number(person.id),
+      userId: Number(person.userId),
+    });
   }
 
-  public findManyPaginated(input: PlaceRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Person>> {
+  public async findManyPaginated(input: PlaceRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Person>> {
     const { name, ...where } = input.where;
     const { perPage = 20, page = 1 } = input.options || {};
 
     const paginate = createPaginator({ perPage });
 
-    return paginate<Person, Prisma.PersonFindManyArgs>(
+    const result = await paginate<PrismaPerson, Prisma.PersonFindManyArgs>(
       this.prismaManager.getClient().person,
       {
         where: {
@@ -42,6 +46,18 @@ export class PrismaPersonRepository implements PersonRepositoryContract {
       },
       { page }
     );
+
+    return {
+      ...result,
+      data: result.data.map(
+        (person) =>
+          new Person({
+            ...person,
+            id: Number(person.id),
+            userId: Number(person.userId),
+          })
+      ),
+    };
   }
 
   public async create(input: PersonRepositoryCreateInput) {
@@ -52,7 +68,11 @@ export class PrismaPersonRepository implements PersonRepositoryContract {
       },
     });
 
-    return new Person(person);
+    return new Person({
+      ...person,
+      id: Number(person.id),
+      userId: Number(person.userId),
+    });
   }
 
   public async update(input: PersonRepositoryUpdateInput) {
@@ -61,7 +81,11 @@ export class PrismaPersonRepository implements PersonRepositoryContract {
       data: input.data,
     });
 
-    return new Person(person);
+    return new Person({
+      ...person,
+      id: Number(person.id),
+      userId: Number(person.userId),
+    });
   }
 
   public async delete(input: PersonRepositoryDeleteInput): Promise<void> {

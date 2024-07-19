@@ -38,11 +38,11 @@ describe('PrismaEmotionRepository', () => {
       });
 
       const result = await emotionRepository.findUniqueOrThrow({
-        where: { id: createdEmotion.id },
+        where: { id: Number(createdEmotion.id) },
       });
 
       expect(result).toMatchObject({
-        id: createdEmotion.id,
+        id: Number(createdEmotion.id),
         name: createdEmotion.name,
       });
     });
@@ -73,7 +73,7 @@ describe('PrismaEmotionRepository', () => {
       });
 
       const result = await emotionRepository.update({
-        where: { id: createdEmotion.id },
+        where: { id: Number(createdEmotion.id) },
         data: { name: 'Updated Name' },
       });
 

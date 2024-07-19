@@ -11,7 +11,7 @@ import type {
 } from '@app/records/dtos/record-repository-dtos';
 import { Record } from '@app/records/entities/record.entity';
 import { Injectable } from '@nestjs/common';
-import type { Prisma } from '@prisma/client';
+import type { Prisma, Record as PrismaRecord } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -23,7 +23,12 @@ export class PrismaRecordRepository implements RecordRepositoryContract {
       where: input.where,
     });
 
-    return new Record(record);
+    return new Record({
+      ...record,
+      id: Number(record.id),
+      placeId: Number(record.placeId),
+      userId: Number(record.userId),
+    });
   }
 
   public async findManyPaginated(input: RecordRepositoryFindManyPaginatedInput): Promise<PaginatedResult<Record>> {
@@ -32,7 +37,7 @@ export class PrismaRecordRepository implements RecordRepositoryContract {
 
     const paginate = createPaginator({ perPage });
 
-    const result = await paginate<Record, Prisma.RecordFindManyArgs>(
+    const result = await paginate<PrismaRecord, Prisma.RecordFindManyArgs>(
       this.prismaManager.getClient().record,
       {
         where: {
@@ -47,7 +52,18 @@ export class PrismaRecordRepository implements RecordRepositoryContract {
       { page }
     );
 
-    return { ...result, data: result.data.map((record) => new Record(record)) };
+    return {
+      ...result,
+      data: result.data.map(
+        (record) =>
+          new Record({
+            ...record,
+            id: Number(record.id),
+            placeId: Number(record.placeId),
+            userId: Number(record.userId),
+          })
+      ),
+    };
   }
 
   public async create(input: RecordRepositoryCreateInput) {
@@ -65,7 +81,12 @@ export class PrismaRecordRepository implements RecordRepositoryContract {
       },
     });
 
-    return new Record(record);
+    return new Record({
+      ...record,
+      id: Number(record.id),
+      placeId: Number(record.placeId),
+      userId: Number(record.userId),
+    });
   }
 
   public async update(input: RecordRepositoryUpdateInput) {
@@ -74,7 +95,12 @@ export class PrismaRecordRepository implements RecordRepositoryContract {
       data: input.data,
     });
 
-    return new Record(record);
+    return new Record({
+      ...record,
+      id: Number(record.id),
+      placeId: Number(record.placeId),
+      userId: Number(record.userId),
+    });
   }
 
   public async delete(input: RecordRepositoryDeleteInput): Promise<void> {

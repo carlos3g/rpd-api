@@ -18,7 +18,10 @@ export class PrismaUserRepository implements UserRepositoryContract {
       where: input.where,
     });
 
-    return new User(user);
+    return new User({
+      ...user,
+      id: Number(user.id),
+    });
   }
 
   public async create(input: UserRepositoryCreateInput): Promise<User> {
@@ -29,7 +32,10 @@ export class PrismaUserRepository implements UserRepositoryContract {
       },
     });
 
-    return new User(user);
+    return new User({
+      ...user,
+      id: Number(user.id),
+    });
   }
 
   public async update(input: UserRepositoryUpdateInput): Promise<User> {
@@ -38,6 +44,9 @@ export class PrismaUserRepository implements UserRepositoryContract {
       data: input.data,
     });
 
-    return new User(user);
+    return new User({
+      ...user,
+      id: Number(user.id),
+    });
   }
 }

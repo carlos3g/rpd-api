@@ -14,7 +14,7 @@ generator dbml {
 }
 
 model User {
-  id                    Int                     @id @default(autoincrement())
+  id                    BigInt                  @id @default(autoincrement()) @db.BigInt
   uuid                  String                  @unique
   name                  String
   email                 String                  @unique
@@ -42,13 +42,13 @@ enum RelationshipType {
 }
 
 model Relationship {
-  id        Int              @id @default(autoincrement())
+  id        BigInt           @id @default(autoincrement()) @db.BigInt
   uuid      String           @unique
   type      RelationshipType
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int              @map("user_id")
+  userId    BigInt           @map("user_id")
   person    Person           @relation(fields: [personId], references: [id], onDelete: Cascade)
-  personId  Int              @map("person_id")
+  personId  BigInt           @map("person_id")
   createdAt DateTime         @default(now()) @map("created_at")
   updatedAt DateTime         @updatedAt @map("updated_at")
 
@@ -56,7 +56,7 @@ model Relationship {
 }
 
 model Record {
-  id        Int       @id @default(autoincrement())
+  id        BigInt    @id @default(autoincrement()) @db.BigInt
   uuid      String    @unique
   event     String
   thought   String
@@ -64,9 +64,9 @@ model Record {
   emotions  Emotion[]
   people    Person[]
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int       @map("user_id")
+  userId    BigInt    @map("user_id")
   place     Place     @relation(fields: [placeId], references: [id], onDelete: Cascade)
-  placeId   Int       @map("place_id")
+  placeId   BigInt    @map("place_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
@@ -74,7 +74,7 @@ model Record {
 }
 
 model Emotion {
-  id        Int      @id @default(autoincrement())
+  id        BigInt   @id @default(autoincrement()) @db.BigInt
   uuid      String   @unique
   name      String
   records   Record[]
@@ -85,11 +85,11 @@ model Emotion {
 }
 
 model Person {
-  id            Int            @id @default(autoincrement())
+  id            BigInt         @id @default(autoincrement()) @db.BigInt
   uuid          String         @unique
   name          String
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        Int            @map("user_id")
+  userId        BigInt         @map("user_id")
   relationships Relationship[]
   records       Record[]
   createdAt     DateTime       @default(now()) @map("created_at")
@@ -99,11 +99,11 @@ model Person {
 }
 
 model Place {
-  id        Int      @id @default(autoincrement())
+  id        BigInt   @id @default(autoincrement()) @db.BigInt
   uuid      String   @unique
   name      String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int      @map("user_id")
+  userId    BigInt   @map("user_id")
   records   Record[]
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -114,7 +114,7 @@ model Place {
 model PasswordChangeRequest {
   token     String   @id
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int      @map("user_id")
+  userId    BigInt   @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

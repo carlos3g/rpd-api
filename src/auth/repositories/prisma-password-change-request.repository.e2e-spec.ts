@@ -26,7 +26,7 @@ describe('PrismaPasswordChangeRequestRepository', () => {
         data: userFactory(),
       });
 
-      const payload = { userId: user.id, token: faker.string.uuid() };
+      const payload = { userId: Number(user.id), token: faker.string.uuid() };
 
       const result = await passwordChangeRequestRepository.create(payload);
 
@@ -53,7 +53,7 @@ describe('PrismaPasswordChangeRequestRepository', () => {
 
       expect(result).toMatchObject({
         token: createdPasswordChangeRequest.token,
-        userId: createdPasswordChangeRequest.userId,
+        userId: Number(createdPasswordChangeRequest.userId),
       });
     });
 
@@ -77,12 +77,12 @@ describe('PrismaPasswordChangeRequestRepository', () => {
       });
 
       const result = await passwordChangeRequestRepository.findFirstOrThrow({
-        where: { userId: user.id },
+        where: { userId: Number(user.id) },
       });
 
       expect(result).toMatchObject({
         token: createdPasswordChangeRequest.token,
-        userId: createdPasswordChangeRequest.userId,
+        userId: Number(createdPasswordChangeRequest.userId),
       });
     });
 
@@ -108,7 +108,7 @@ describe('PrismaPasswordChangeRequestRepository', () => {
         ],
       });
 
-      const result = await passwordChangeRequestRepository.deleteMany({ where: { userId: user.id } });
+      const result = await passwordChangeRequestRepository.deleteMany({ where: { userId: Number(user.id) } });
 
       const remainingRequests = await prisma.passwordChangeRequest.findMany({
         where: { token: { in: ['token1', 'token2'] } },
