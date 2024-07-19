@@ -16,8 +16,10 @@ export class Record {
 
   public behavior!: string;
 
+  @Exclude()
   public userId!: number;
 
+  @Exclude()
   public placeId!: number;
 
   public createdAt!: Date;

@@ -1,4 +1,6 @@
+import type { EnvVariables } from '@app/shared/types';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
@@ -8,6 +10,8 @@ const DEFAULT_API_PORT = 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const configService = app.get<ConfigService<EnvVariables>>(ConfigService);
 
   const config = new DocumentBuilder()
     .setTitle('RPD - API')
@@ -23,9 +27,14 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    })
+  );
 
-  await app.listen(process.env.API_PORT || DEFAULT_API_PORT);
+  await app.listen(configService.get('API_PORT') || DEFAULT_API_PORT);
 }
 
 void bootstrap();

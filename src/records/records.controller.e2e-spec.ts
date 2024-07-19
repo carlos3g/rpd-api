@@ -1,4 +1,3 @@
-import { PersonRepositoryContract } from '@app/people/contracts';
 import { PlaceRepositoryContract } from '@app/places/contracts';
 import { RecordRepositoryContract } from '@app/records/contracts';
 import { UserRepositoryContract } from '@app/users/contracts/user-repository.contract';
@@ -12,13 +11,11 @@ import * as request from 'supertest';
 
 let userRepository: UserRepositoryContract;
 let recordRepository: RecordRepositoryContract;
-let personRepository: PersonRepositoryContract;
 let placeRepository: PlaceRepositoryContract;
 
 beforeAll(() => {
   userRepository = app.get<UserRepositoryContract>(UserRepositoryContract);
   recordRepository = app.get<RecordRepositoryContract>(RecordRepositoryContract);
-  personRepository = app.get<PersonRepositoryContract>(PersonRepositoryContract);
   placeRepository = app.get<PlaceRepositoryContract>(PlaceRepositoryContract);
 });
 
@@ -41,13 +38,15 @@ describe('(POST) /records', () => {
     const place = await placeRepository.create({ ...placeFactory(), userId: user.id });
     const recordPayload = {
       ...recordFactory(),
-      placeId: place.id,
-      userId: user.id,
+      placeUuid: place.uuid,
     };
     const response = await request(server).post('/records').auth(token, { type: 'bearer' }).send(recordPayload);
 
     expect(response.status).toEqual(HttpStatus.CREATED);
     expect(response.body).not.toHaveProperty('id');
+    expect(response.body).not.toHaveProperty('userId');
+    expect(response.body).not.toHaveProperty('placeId');
+    expect(response.body).not.toHaveProperty('personId');
     expect(response.body).toHaveProperty('uuid');
   });
 });
@@ -139,7 +138,7 @@ describe('(GET) /records', () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       data: expect.arrayContaining([
         expect.objectContaining({
-          userId: Number(user.id),
+          uuid: expect.any(String) as string,
         }),
       ]),
     });

@@ -16,6 +16,7 @@ export class User {
 
   public birthDate!: Date;
 
+  @Exclude()
   public password!: string;
 
   public createdAt!: Date;

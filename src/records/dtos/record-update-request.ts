@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class RecordUpdateRequest {
   @ApiPropertyOptional()
@@ -19,11 +19,6 @@ export class RecordUpdateRequest {
 
   @ApiPropertyOptional()
   @IsOptional()
-  @IsInt()
-  public userId?: number;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsInt()
-  public placeId?: number;
+  @IsUUID()
+  public placeUuid?: number;
 }

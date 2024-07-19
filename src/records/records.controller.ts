@@ -1,5 +1,7 @@
 import { UserDecorator } from '@app/auth/decorators/user.decorator';
 import { AuthGuard } from '@app/auth/guards/auth.guard';
+import { PersonRepositoryContract } from '@app/people/contracts';
+import { PlaceRepositoryContract } from '@app/places/contracts';
 import { RecordRepositoryContract } from '@app/records/contracts';
 import { FilterRecordsQuery } from '@app/records/dtos/filter-records-query';
 import { RecordCreateRequest } from '@app/records/dtos/record-create-request';
@@ -25,7 +27,11 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 @UseGuards(AuthGuard)
 @Controller('records')
 export class RecordsController {
-  public constructor(private readonly recordRepository: RecordRepositoryContract) {}
+  public constructor(
+    private readonly recordRepository: RecordRepositoryContract,
+    private readonly placeRepository: PlaceRepositoryContract,
+    private readonly personRepository: PersonRepositoryContract
+  ) {}
 
   @Get('')
   @HttpCode(HttpStatus.OK)
@@ -43,7 +49,30 @@ export class RecordsController {
   @Post('')
   @HttpCode(HttpStatus.CREATED)
   public async create(@UserDecorator() user: User, @Body() input: RecordCreateRequest) {
-    return this.recordRepository.create({ ...input, userId: user.id });
+    const { placeUuid, personUuid, ...rest } = input;
+
+    const person = personUuid
+      ? await this.personRepository.findUniqueOrThrow({
+          where: {
+            uuid: personUuid,
+            userId: user.id,
+          },
+        })
+      : undefined;
+
+    const place = await this.placeRepository.findUniqueOrThrow({
+      where: {
+        uuid: placeUuid,
+        userId: user.id,
+      },
+    });
+
+    return this.recordRepository.create({
+      ...rest,
+      userId: user.id,
+      placeId: place.id,
+      personId: person?.id,
+    });
   }
 
   @Get('/:id')
